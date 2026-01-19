@@ -57,15 +57,6 @@ function showToast(e) {
 }
 
 function RewardAdforpopup() {
-  if (!window.googletag || !googletag.cmd || !googletag.enums) {
-    console.error("Google Ad Manager is not properly initialized.");
-    showToast({
-      title: "Error",
-      msg: "Ad system not ready. Please try again.",
-    });
-    return;
-  }
-
   googletag.cmd.push(function () {
     try {
       if (
