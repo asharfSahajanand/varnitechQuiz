@@ -21,15 +21,15 @@
   <link rel="stylesheet" href="/css/style.css">
   <script src="/js/jquery-3.6.4.min.js"></script>
   <link rel="preconnect" href="https://googleads.g.doubleclick.net">
-  <script src="/js/ads.js"></script>
+  
 
   <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" crossorigin="anonymous"></script>
-    <script>
+  <script>
         window.googletag = window.googletag || { cmd: [] };
         let interstitialSlot;
 
         googletag.cmd.push(() => {
-            // ✅ Define interstitial slot
+            // ? Define interstitial slot
             interstitialSlot = googletag.defineOutOfPageSlot(
                 '/23330730517/quizniva.com_inter',
                 googletag.enums.OutOfPageFormat.INTERSTITIAL
@@ -41,25 +41,27 @@
 
             googletag.enableServices();
 
-            // ✅ Preload the interstitial ad immediately after page load
+            // ? Preload the interstitial ad immediately after page load
             if (interstitialSlot) {
                 googletag.display(interstitialSlot);
             }
         });
 
-        // ✅ Function to show interstitial and then call callback
+        // ? Function to show interstitial and then call callback
         function showInterstitialAd(callback) {
             googletag.cmd.push(() => {
                 if (interstitialSlot) {
                     googletag.pubads().display(interstitialSlot);
                 }
-                // ⏳ Fast fallback: max wait 500ms
+                // ? Fast fallback: max wait 500ms
                 setTimeout(() => {
                     if (typeof callback === 'function') callback();
                 }, 500);
             });
         }
     </script>
+</script>
+
 </head>
 
 <body>
@@ -71,7 +73,7 @@
       <div class="usr_reward bg-white rounded-lg p-6 shadow-xl">
         <div class="mt-2 flex justify-end">
           <a href="/playquiz.html">
-            <span class="p-3 font-bold text-xl cursor-pointer mr-4">×</span>
+            <span class="p-3 font-bold text-xl cursor-pointer mr-4">Ã—</span>
           </a>
         </div>
         <div>
@@ -89,7 +91,7 @@
               <p class="text-sm text-gray-400">Watch a simple ad and get rewarded</p>
               <div class="mt-5">
                 <button class="default_btn w-96 bg-blue-500 text-white py-2 px-4 rounded"
-                  >Claim</button>
+                 onclick="showRewardAd()" >Claim</button>
               </div>
             </div>
           </div>
@@ -97,11 +99,32 @@
       </div>
     </div>
 
+<script>
+  window.googletag = window.googletag || { cmd: [] };
+
+  googletag.cmd.push(function () {
+    const adSlot1 = googletag.defineSlot(
+      '/23330730517/Quizniva.com_d1',
+      [[300, 250], [320, 300], [250, 250], [300, 280], [300, 100]],
+      'ad-slot-1-1'
+    );
+
+    adSlot1.addService(googletag.pubads());
+
+    googletag.pubads().collapseEmptyDivs();
+    googletag.enableServices();
+
+    googletag.display('ad-slot-1-1');
+  });
+</script>
     <!-- Mobile view container -->
     <div class="mobile">
       <!-- First ad slot -->
+      
       <div class="ads-box mb-4" style="min-height: 250px;">
-        <div id="ad-slot-1" class="ad-container w-full flex justify-center"></div>
+
+
+        <div id="ad-slot-1-1" class="ad-container w-full flex justify-center"></div>
       </div>
 
       <div class="fist_layer text-center p-3 mt-3">
@@ -123,24 +146,43 @@
               <div class="hidden" id="result"></div>
             </div>
           </div>
+          
+<script>
+  window.googletag = window.googletag || { cmd: [] };
+
+  googletag.cmd.push(function () {
+    const adSlot1 = googletag.defineSlot(
+      '/23330730517/Quizniva.com_d2',
+      [[300, 250], [320, 300], [250, 250], [300, 280], [300, 100]],
+      'ad-slot-2-1'
+    );
+
+    adSlot1.addService(googletag.pubads());
+
+    googletag.pubads().collapseEmptyDivs();
+    googletag.enableServices();
+
+    googletag.display('ad-slot-2-1');
+  });
+</script>
           <!-- Second ad slot -->
           <div class="ads-box mb-4" style="min-height: 250px;">
-            <div id="ad-slot-2" class="ad-container w-full flex justify-center"></div>
+            <div id="ad-slot-2-1" class="ad-container w-full flex justify-center"></div>
           </div>
           <div class="col mt-10">
             <div class="ft_area p-3">
               <div class="font-bold text-xl mb-3"><i class="fa-solid fa-book fa-sm"></i> Genius Facts</div>
               <div class="text-gray-400 font-bold text-left text-sm">
-                <p class="mb-2">🔘 A loan is a sum of money borrowed from a lender that is expected to be repaid with
+                <p class="mb-2">ðŸ”˜ A loan is a sum of money borrowed from a lender that is expected to be repaid with
                   interest over time.</p>
-                <p class="mb-2">🔘 Loans can be secured (backed by collateral) or unsecured (based on creditworthiness).
+                <p class="mb-2">ðŸ”˜ Loans can be secured (backed by collateral) or unsecured (based on creditworthiness).
                 </p>
-                <p class="mb-2">🔘 Common types include personal loans, home loans, auto loans, and student loans.</p>
-                <p class="mb-2">🔘 Interest rates vary depending on the type of loan, the borrower's credit score, and
+                <p class="mb-2">ðŸ”˜ Common types include personal loans, home loans, auto loans, and student loans.</p>
+                <p class="mb-2">ðŸ”˜ Interest rates vary depending on the type of loan, the borrower's credit score, and
                   the lending institution.</p>
-                <p class="mb-2">🔘 Timely repayment helps build credit, while missed payments can damage credit scores
+                <p class="mb-2">ðŸ”˜ Timely repayment helps build credit, while missed payments can damage credit scores
                   and lead to penalties.</p>
-                <p class="mb-2">🔘 Loans are a critical financial tool, allowing individuals and businesses to access
+                <p class="mb-2">ðŸ”˜ Loans are a critical financial tool, allowing individuals and businesses to access
                   funds for education, housing, emergencies, or business expansion.</p>
               </div>
             </div>
@@ -165,7 +207,7 @@
   <div class="popup-overlay fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-30 hidden"
     id="popupOverlay">
     <div class="popup-content bg-white rounded-lg p-6 relative max-w-md w-full mx-4">
-      <button class="close-popup absolute top-2 right-4 text-2xl font-bold" onclick="closePopup()">×</button>
+      <button class="close-popup absolute top-2 right-4 text-2xl font-bold" onclick="closePopup()">Ã—</button>
       <div class="ads-box mt-8" style="min-height: 250px;">
         <div id="ad-slot-2" class="ad-container w-full flex justify-center"></div>
       </div>
@@ -174,55 +216,42 @@
 
   <script src="/js/index.js"></script>
   <script src="/js/footer.js"></script>
-  <script>
-    function RewardAd2() {
-      googletag.cmd.push(function () {
-        try {
-          if (!googletag.enums.OutOfPageFormat?.REWARDED) {
-            console.error("Rewarded ads not supported");
-            return;
-          }
+<script>
+function showRewardAd() {
+  googletag.cmd.push(() => {
 
-          const rewardedSlot = googletag
-            .defineOutOfPageSlot(
-              "/23330730517/Quizniva.com_d1",
-              googletag.enums.OutOfPageFormat.REWARDED
-            )
-            .addService(googletag.pubads());
-
-          if (!rewardedSlot) {
-            console.error("Failed to create rewarded slot");
-            return;
-          }
-
-          // Logs only
-          googletag.pubads().addEventListener("rewardedSlotReady", function (e) {
-            console.log("🎁 Rewarded ad ready");
-            e.makeRewardedVisible();
-          });
-
-          googletag.pubads().addEventListener("rewardedSlotGranted", function () {
-            console.log("✅ Reward granted");
-          });
-
-          googletag.pubads().addEventListener("rewardedSlotClosed", function () {
-            console.log("❌ Rewarded ad closed");
-            googletag.destroySlots([rewardedSlot]);
-          });
-
-          googletag.display(rewardedSlot);
-          console.log("📢 Rewarded ad request sent");
-
-        } catch (err) {
-          console.error("Rewarded ad error:", err);
-        }
-      });
+    if (!googletag.enums.OutOfPageFormat?.REWARDED) {
+      console.log('Rewarded not supported');
+      return;
     }
 
+    const rewardedSlot = googletag
+      .defineOutOfPageSlot(
+        '/23330730517/Quizniva.com_rewarded',
+        googletag.enums.OutOfPageFormat.REWARDED
+      )
+      .addService(googletag.pubads());
 
-    setTimeout(RewardAd2(), 3000)
+    googletag.pubads().addEventListener('rewardedSlotReady', (e) => {
+      console.log('?? Rewarded Ready');
+      e.makeRewardedVisible(); // ? ONLY AFTER CLICK
+    });
 
-  </script>
+    googletag.pubads().addEventListener('rewardedSlotGranted', () => {
+      console.log('? Reward Granted');
+      // ?? YAHIN COINS ADD KARO (API CALL)
+    });
+
+    googletag.pubads().addEventListener('rewardedSlotClosed', () => {
+      googletag.destroySlots([rewardedSlot]);
+    });
+
+    googletag.display(rewardedSlot);
+  });
+}
+</script>
+
+
 </body>
 
 </html>
