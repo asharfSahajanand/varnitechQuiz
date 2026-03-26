@@ -124,116 +124,44 @@
         </div>
         <script src="/data/category.js"></script>
         <script>
-            function showToast(e) {
-                // Create the toast element
-                const toast = document.createElement('div');
-                toast.className = 'max-w-xs  border border-gray-200 p-4 rounded shadow-lg flex items-center space-x-4';
-                toast.innerHTML = `
-            <div class="flex-shrink-0">
-              <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7 12l5 5L21 7" />
-              </svg>
-            </div>
-            <div>
-              <p class="text-sm font-semibold">${e.title}</p>
-              <p class="text-sm">${e.msg}</p>
-            </div>
-          `;
-                // Append the toast to the container
-                document.getElementById('toast-container').appendChild(toast);
-                // Automatically remove the toast after 3 seconds
-                setTimeout(() => {
-                    toast.remove();
-                }, 3000);
-            }
+function showRewardAd() {
+  if (typeof adBreak !== "function") {
+    alert("Ad not ready");
+    return;
+  }
 
-            function RewardAd() {
-                if (!window.googletag || !googletag.cmd || !googletag.enums) {
-                    console.error("Google Ad Manager is not properly initialized.");
-                    showToast({
-                        title: "Error",
-                        msg: "Ad system not ready. Please try again.",
-                    });
-                    return;
-                }
+  adBreak({
+    type: "reward",
+    name: "reward-coin",
 
-                googletag.cmd.push(function () {
-                    try {
-                        if (
-                            !googletag.enums.OutOfPageFormat ||
-                            !googletag.enums.OutOfPageFormat.REWARDED
-                        ) {
-                            console.error("Rewarded ad format not supported");
-                            showToast({
-                                title: "Error",
-                                msg: "Rewarded ads not supported on this device.",
-                            });
-                            return;
-                        }
+    beforeReward: (showAdFn) => {
+      showAdFn(); // ad start
+    },
 
-                        const rewardedSlot = googletag
-                            .defineOutOfPageSlot(
-                                "/23330730517/Quizniva.com_d1",
-                                googletag.enums.OutOfPageFormat.REWARDED
-                            )
-                            .addService(googletag.pubads());
+    adViewed: () => {
+      console.log("Reward mil gaya");
 
-                        if (!rewardedSlot) {
-                            console.error("Failed to create finance rewarded ad slot");
-                            showToast({ title: "Error", msg: "Failed to create reward ad." });
-                            return;
-                        }
+      // 👉 Yaha reward do
+      showToast({
+        title: "Success!",
+        msg: "100 coins added!"
+      });
 
-                        googletag.display(rewardedSlot);
-                        console.log("Attempting to display finance rewarded ad...");
+      // example:
+      // user.coins += 100;
+    },
 
-                        const timeoutId = setTimeout(() => {
-                            console.log("Finance rewarded ad timeout");
-                            showToast({
-                                title: "Timeout",
-                                msg: "Ad took too long to load. Please try again.",
-                            });
-                            googletag.destroySlots([rewardedSlot]);
-                        }, 10000);
+    adDismissed: () => {
+      console.log("User ne ad close kiya");
 
-                        googletag.pubads().addEventListener("rewardedSlotReady", function (evt) {
-                            console.log("Finance rewarded ad ready.");
-                            clearTimeout(timeoutId);
-                            evt.makeRewardedVisible();
-                            treasurepopremove();
-                        });
-
-                        googletag.pubads().addEventListener("rewardedSlotClosed", function () {
-                            console.log("Finance rewarded ad closed.");
-                            clearTimeout(timeoutId);
-                            googletag.destroySlots([rewardedSlot]);
-                            showToast({
-                                title: "Reward Earned!",
-                                msg: "100 coins added to your account!",
-                            });
-                        });
-
-                        googletag.pubads().addEventListener("rewardedSlotGranted", function () {
-                            console.log("Finance reward granted.");
-                            showToast({
-                                title: "Success!",
-                                msg: "Reward will be credited shortly.",
-                            });
-                        });
-                    } catch (error) {
-                        console.error("Error during finance rewarded ad setup:", error);
-                        showToast({
-                            title: "Error",
-                            msg: "Failed to load rewarded ad: " + error.message,
-                        });
-                    }
-                });
-            }
-
-
-            let allcoins = localStorage.getItem('totalcoin');
-            document.getElementById('total_coins').innerText = allcoins
-        </script>
+      showToast({
+        title: "Oops!",
+        msg: "Ad complete nahi hua 😢"
+      });
+    }
+  });
+}
+</script>
 </body>
 
 </html>

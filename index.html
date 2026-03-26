@@ -210,36 +210,41 @@
   <script src="/js/index.js"></script>
   <script src="/js/footer.js"></script>
 <script>
-function showRewardAd() {
-  googletag.cmd.push(() => {
+function RewardAd() {
+  if (typeof adBreak !== "function") {
+    alert("Ad not ready");
+    return;
+  }
 
-    if (!googletag.enums.OutOfPageFormat?.REWARDED) {
-      console.log('Rewarded not supported');
-      return;
+  adBreak({
+    type: "reward",
+    name: "reward-coin",
+
+    beforeReward: (showAdFn) => {
+      showAdFn(); // ad start
+    },
+
+    adViewed: () => {
+      console.log("Reward mil gaya");
+
+      // 👉 Yaha reward do
+      showToast({
+        title: "Success!",
+        msg: "100 coins added!"
+      });
+
+      // example:
+      // user.coins += 100;
+    },
+
+    adDismissed: () => {
+      console.log("User ne ad close kiya");
+
+      showToast({
+        title: "Oops!",
+        msg: "Ad complete nahi hua 😢"
+      });
     }
-
-    const rewardedSlot = googletag
-      .defineOutOfPageSlot(
-        '/23330730517/Quizniva.com_rewarded',
-        googletag.enums.OutOfPageFormat.REWARDED
-      )
-      .addService(googletag.pubads());
-
-    googletag.pubads().addEventListener('rewardedSlotReady', (e) => {
-      console.log('?? Rewarded Ready');
-      e.makeRewardedVisible(); // ? ONLY AFTER CLICK
-    });
-
-    googletag.pubads().addEventListener('rewardedSlotGranted', () => {
-      console.log('? Reward Granted');
-      // ?? YAHIN COINS ADD KARO (API CALL)
-    });
-
-    googletag.pubads().addEventListener('rewardedSlotClosed', () => {
-      googletag.destroySlots([rewardedSlot]);
-    });
-
-    googletag.display(rewardedSlot);
   });
 }
 </script>
