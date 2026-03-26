@@ -261,17 +261,98 @@
 //       };
 //     })();
 
+// (function () {
+
+//   function displayAllAds() {
+//     loadAdsenseAd('ad-slot-1', '4306431074', 300, 250);
+//     loadAdsenseAd('ad-slot-2', '9890531561', 320, 300);
+//     loadAdsenseAd('ad-slot-3', '7835213866', 250, 250);
+//   }
+
+//   function loadAdsenseAd(containerId, slotId, width, height) {
+//     const container = document.getElementById(containerId);
+//     if (!container) return;
+
+//     container.innerHTML = `
+//       <ins class="adsbygoogle"
+//            style="display:inline-block;width:${width}px;height:${height}px"
+//            data-ad-client="ca-pub-1615420563101212"
+//            data-ad-slot="${slotId}">
+//       </ins>
+//     `;
+
+//     (adsbygoogle = window.adsbygoogle || []).push({});
+//   }
+
+//   document.addEventListener("DOMContentLoaded", displayAllAds);
+
+// })();
+
+
 (function () {
 
-  function displayAllAds() {
-    loadAdsenseAd('ad-slot-1', '4306431074', 300, 250);
-    loadAdsenseAd('ad-slot-2', '9890531561', 320, 300);
-    loadAdsenseAd('ad-slot-3', '7835213866', 250, 250);
+  // =============================================
+  // H5 Games Ad Config - Reward ke liye zaroori
+  // =============================================
+  window.adsbygoogle = window.adsbygoogle || [];
+
+  if (typeof adConfig === 'function') {
+    adConfig({
+      preloadAdBreaks: 'on',
+      sound: 'off',
+      onReady: function () {
+        console.log('H5 adConfig ready');
+      }
+    });
   }
 
+  // =============================================
+  // Reward Ad - naam showRewardAd (HTML se match)
+  // =============================================
+  window.showRewardAd = function () {
+    if (typeof adBreak !== 'function') {
+      console.warn('adBreak not available');
+      return;
+    }
+
+    adBreak({
+      type: 'reward',
+      name: 'reward-coin',
+
+      beforeReward: function (showAdFn) {
+        showAdFn();
+      },
+
+      adViewed: function () {
+        console.log('Reward mil gaya');
+        if (typeof showToast === 'function') {
+          showToast({ title: 'Success!', msg: '100 coins added!' });
+        }
+        // user.coins += 100;
+      },
+
+      adDismissed: function () {
+        console.log('User ne ad close kiya');
+        if (typeof showToast === 'function') {
+          showToast({ title: 'Oops!', msg: 'Ad complete nahi hua' });
+        }
+      },
+
+      adBreakDone: function (info) {
+        console.log('Ad break status:', info.breakStatus);
+      }
+    });
+  };
+
+  // =============================================
+  // Display Ads
+  // =============================================
   function loadAdsenseAd(containerId, slotId, width, height) {
     const container = document.getElementById(containerId);
     if (!container) return;
+
+    // Duplicate check - agar pehle se hai to skip
+    if (container.querySelector('.adsbygoogle')) return;
 
     container.innerHTML = `
       <ins class="adsbygoogle"
@@ -281,9 +362,23 @@
       </ins>
     `;
 
-    (adsbygoogle = window.adsbygoogle || []).push({});
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (e) {
+      console.warn('AdSense push error:', e);
+    }
   }
 
-  document.addEventListener("DOMContentLoaded", displayAllAds);
+  function displayAllAds() {
+    loadAdsenseAd('ad-slot-1', '4306431074', 300, 250);
+    loadAdsenseAd('ad-slot-2', '9890531561', 320, 300);
+    loadAdsenseAd('ad-slot-3', '7835213866', 250, 250);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', displayAllAds);
+  } else {
+    displayAllAds();
+  }
 
 })();

@@ -108,9 +108,11 @@
       <!-- First ad slot -->
       
       <div class="ads-box mb-4 text-center">
-
+<div class="ads-box mt-8" style="min-height: 250px;">
+        <div id="ad-slot-1" class="ad-container w-full flex justify-center"></div>
+      </div>
     <!-- home top -->
-    <ins class="adsbygoogle"
+    <!-- <ins class="adsbygoogle"
          style="display:inline-block"
          data-ad-client="ca-pub-1615420563101212"
          data-ad-slot="4306431074"
@@ -119,7 +121,7 @@
 
     <script>
       (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
+    </script> -->
 
   </div>
 
@@ -148,8 +150,10 @@
           <div class="ads-box mb-4" style="min-height: 250px;">
            <div class="ads-box mb-4 text-center">
 
-    <!-- home top -->
-    <ins class="adsbygoogle"
+  <div class="ads-box mt-8" style="min-height: 250px;">
+        <div id="ad-slot-3" class="ad-container w-full flex justify-center"></div>
+      </div>
+    <!-- home top  <ins class="adsbygoogle"
          style="display:inline-block"
          data-ad-client="ca-pub-1615420563101212"
      data-ad-slot="9890531561"
@@ -158,7 +162,7 @@
 
     <script>
       (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
+    </script> -->
 
   </div>
           </div>
@@ -209,45 +213,7 @@
 
   <script src="/js/index.js"></script>
   <script src="/js/footer.js"></script>
-<script>
-function RewardAd() {
-  if (typeof adBreak !== "function") {
-    alert("Ad not ready");
-    return;
-  }
-
-  adBreak({
-    type: "reward",
-    name: "reward-coin",
-
-    beforeReward: (showAdFn) => {
-      showAdFn(); // ad start
-    },
-
-    adViewed: () => {
-      console.log("Reward mil gaya");
-
-      // 👉 Yaha reward do
-      showToast({
-        title: "Success!",
-        msg: "100 coins added!"
-      });
-
-      // example:
-      // user.coins += 100;
-    },
-
-    adDismissed: () => {
-      console.log("User ne ad close kiya");
-
-      showToast({
-        title: "Oops!",
-        msg: "Ad complete nahi hua 😢"
-      });
-    }
-  });
-}
-</script>
+ <script src="/js/ads.js"></script>
 
 
 </body>
