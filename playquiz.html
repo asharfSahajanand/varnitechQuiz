@@ -55,9 +55,7 @@
                                         style="color: #FFD43B;"></i> 100 Coins
                                 </div>
 
-                                <button class="default_btn" onclick="showRewardAd(function(){ window.location.href='./home.html'; })">
-  Play Quiz
-</button>
+                                <button class="default_btn" onclick="closereward()">Play Quiz</button>
 
                                 <div class="QA_rules">
                                     <ul class="mt-1 p-3 text-gray-400 text-sm font-bold">
@@ -76,7 +74,50 @@
                 </div>
             </div>
         </div>
-        
+        <script>
+function closereward() {
+    window.location.href = "./home.html";
+}
+</script>
+        <script>
+function RewardAd() {
+  if (typeof adBreak !== "function") {
+    alert("Ad not ready");
+    return;
+  }
+
+  adBreak({
+    type: "reward",
+    name: "reward-coin",
+
+    beforeReward: (showAdFn) => {
+      showAdFn(); // ad start
+    },
+
+    adViewed: () => {
+      console.log("Reward mil gaya");
+
+      // 👉 Yaha reward do
+      showToast({
+        title: "Success!",
+        msg: "100 coins added!"
+      });
+
+      // example:
+      // user.coins += 100;
+    },
+
+    adDismissed: () => {
+      console.log("User ne ad close kiya");
+
+      showToast({
+        title: "Oops!",
+        msg: "Ad complete nahi hua 😢"
+      });
+    }
+  });
+}
+</script>
 </body>
 
 </html>
