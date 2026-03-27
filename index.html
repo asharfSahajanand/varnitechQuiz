@@ -214,7 +214,42 @@
   <script src="/js/index.js"></script>
   <script src="/js/footer.js"></script>
  <script src="/js/ads.js"></script>
+<!-- YEH DONO SCRIPT DELETE KARO -->
+<script>
+function closereward() {
+    window.location.href = "./home.html";
+}
+</script>
 
+<script>
+function RewardAd() {
+  if (typeof adBreak !== "function") {
+    alert("Ad not ready");
+    return;
+  }
+  adBreak({
+    type: "reward",
+    name: "reward-coin",
+    beforeReward: (showAdFn) => {
+      showAdFn();
+    },
+    adViewed: () => {
+      console.log("Reward mil gaya");
+      showToast({
+        title: "Success!",
+        msg: "100 coins added!"
+      });
+    },
+    adDismissed: () => {
+      console.log("User ne ad close kiya");
+      showToast({
+        title: "Oops!",
+        msg: "Ad complete nahi hua 😢"
+      });
+    }
+  });
+}
+</script>
 
 </body>
 
